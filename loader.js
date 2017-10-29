@@ -6,8 +6,8 @@ const MongoClient = require("mongodb").MongoClient;
 const url =
   "https://opendata.paris.fr/explore/dataset/liste-des-antennes-wifi/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true";
 
-//const dbUrl = "mongodb://mongo:27017/wifi";
-const dbUrl = "mongodb://192.168.99.100:32422/opendata";
+const dbUrl = config.mongo.url;
+console.log("Chargement des données.");
 
 MongoClient.connect(dbUrl, (err, db) => {
     db.collection("bornesWifi").count((err, count) =>{
@@ -39,5 +39,5 @@ MongoClient.connect(dbUrl, (err, db) => {
         console.log("Données déjà présentes. Elements : " , count );
     }
     db.close(); 
-        })
+    })
 });
