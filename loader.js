@@ -13,7 +13,7 @@ console.log("Chargement des données.");
 MongoClient.connect(dbUrl, (err, db) => {
     db.collection("bornesWifi").count((err, count) =>{
     if(count == 0) {
-        console("Chargement de données...");
+        console.log("Chargement de données...");
         request(url, (error, response, body) => {
             if (error || response.statusCode != 200) {
             console.error("Recupération des données en echec");
