@@ -39,6 +39,8 @@ MongoClient.connect(dbUrl, (err, db) => {
     }else{
         console.log("Données déjà présentes. Elements : " , count );
     }
-    db.close(); 
+    //BOF...
+    setTimeout(() => db.close() , 5000);
+    
     })
 });
