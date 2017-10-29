@@ -3,5 +3,6 @@ MAINTAINER "nicolas.rousseau1@gmail.com"
 EXPOSE 3000
 WORKDIR /app
 ADD . /app
+ARG JS_FILE
 RUN ["npm", "install"]
-CMD ["node", "index.js"]
+CMD ["node", JS_FILE]
