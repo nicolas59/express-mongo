@@ -5,4 +5,4 @@ WORKDIR /app
 ADD . /app
 ARG JS_FILE
 RUN ["npm", "install"]
-CMD ["node", JS_FILE]
+CMD ["node", $JS_FILE]
