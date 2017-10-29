@@ -2,6 +2,7 @@ const fs = require("fs");
 const os = require("os");
 const request = require("request");
 const MongoClient = require("mongodb").MongoClient;
+const config = require("./config");
 
 const url =
   "https://opendata.paris.fr/explore/dataset/liste-des-antennes-wifi/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true";
