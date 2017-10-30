@@ -3,7 +3,7 @@ Ce projet a pour objectif de fournir une introduction à kubernetes à travers l
 
 # Pre-requis 
  * Installation de minikube
- * Installation de kuberctl
+ * Installation de kubectl
  * NodeJs pour les tests locaux
 
 #Initialisation de minikube
@@ -45,7 +45,7 @@ Traefik permet de mettre en place un **load balancer** au niveau des containers.
 
 Executer la commande :
 
-`kuberctl apply -f pod-traefik-ui.yml`
+`kubectl apply -f pod-traefik-ui.yml`
 
 # Deploiement de mongo
 Mongodb, base de données noSQL,  permettra de stocker les données sur les bornes wifi. Le fichier **pod-mongo.yml** réalise le deploiement du pod : 
@@ -54,7 +54,7 @@ Mongodb, base de données noSQL,  permettra de stocker les données sur les born
 
 Executer la commande : 
 
-`kuberctl apply -f pod-mongo.yml`
+`kubectl apply -f pod-mongo.yml`
 
 # Deploiement du replicaSet express-mongo
 Il s'agit de l'application permettant de fournir l'API pour l'accés aux bornes Wifi. Le fichier **rs-express-mongo.yml** permet : 
@@ -63,20 +63,20 @@ Il s'agit de l'application permettant de fournir l'API pour l'accés aux bornes 
 
 Executer la commande : 
 
-`kuberctl apply -f rs-express-mongo.yml`
+`kubectl apply -f rs-express-mongo.yml`
 
 # Deploiement du service express-mongo
 Ce service va permettre d'accéder à nos différents pods intégrant l'API et sera le point d'accés à l'ingress.
 
 Executer la commande : 
 
- `kuberctl apply -f srv-express-mongo.yml`
+ `kubectl apply -f srv-express-mongo.yml`
 
 # Deploiement de l'ingress express-mongo
 Cette derniere étape permet de rendre accéssible notre service via traefik en utilisant le domaine **express-mongo.minikube**.
 
 Executer la commande : 
 
-`kuberctl apply -f ing-express-mongo.yml`
+`kubectl apply -f ing-express-mongo.yml`
 
 Apres avoir modifié le fichier /ets/hosts ou C:\Windows\System32\drivers\etc afin d'associer l'ip 127.0.0.1 au domaine **express-mongo.minikube**, l'API est accessible à cette url : **http://express-mongo.minikube/borne**
