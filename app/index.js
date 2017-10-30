@@ -3,6 +3,7 @@ const app = express()
 const os = require("os");
 const MongoClient = require('mongodb').MongoClient;
 const config = require("./config");
+const Borne = require("./dao/Borne.js");
 
 console.log('Initialisation connexion avec mongo')
 
@@ -21,6 +22,8 @@ app.get("/kill", (req, res) => {
     process.exit();
 });
 
+
+
 function populateQuery(query, property, value){
   if(value){
     query[property] = value;
@@ -35,14 +38,20 @@ app.get("/borne",  (req, resp) => {
   findByCirteria(query, req, resp);
 });
 
+app.get("/borne/count",  (req, resp) => {
+  resp.setHeader("Content-Type", "application/json");
+  var borne = new Borne();
+  borne.connect().then(
+    () => borne.count().then((count) => resp.send("{length:"+count+ "}")).then(()=>borne.close()));
+ 
+});
+
 function findByCirteria(query, req, resp) {
-  MongoClient.connect(dbUrl, (err, db) => { 
-    db.collection("bornesWifi").find(query).toArray((err, docs) =>{
-      resp.setHeader("Content-Type", "application/json");
-      resp.send(docs);
-      db.close();
-    });
-  });
+  var borne = new Borne();
+  borne.connect().then(() => borne.find(query).then((docs) => {
+    resp.setHeader("Content-Type", "application/json");
+    resp.send(docs);
+  }).then(() => borne.close()));
 }
 
 app.get("/borne/:reference", (req, resp) => {
