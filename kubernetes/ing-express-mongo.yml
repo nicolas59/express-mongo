@@ -1,0 +1,32 @@
+############################################################
+# Service @ Ingress permettant de rendre disponible le pod 
+# express-mongo via traefik
+############################################################
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: express-mongo-traefik
+spec:
+  selector:
+    app: express-mongo
+  ports:
+  - name: http
+    port: 80
+    targetPort: 3000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: express-mongo
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: express-mongo.minikube
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: express-mongo-traefik
+          servicePort: http

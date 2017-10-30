@@ -1,0 +1,16 @@
+############################################################
+# Pod Simple pour mettre en place l'application express-mongo
+############################################################
+apiVersion: v1
+kind: Pod
+metadata:
+  name: express-mongo
+  labels:
+    app: express-mongo
+spec:
+  containers:
+  - name: express-mongo
+    image: express-mongo:1.0.0
+    ports:
+    - containerPort: 3000
+      hostPort: 3000

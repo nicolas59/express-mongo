@@ -1,0 +1,46 @@
+############################################################
+# Preplicaset pour mettre en place du scaling et du healt check sur
+# l'application express-mongo
+############################################################
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: express-mongo
+  # these labels can be applied automatically
+  # from the labels in the pod template if not set
+  # labels:
+    # app: guestbook
+    # tier: frontend
+spec:
+  # this replicas value is default
+  # modify it according to your case
+  replicas: 2
+  # selector can be applied automatically
+  # from the labels in the pod template if not set,
+  # but we are specifying the selector here to
+  # demonstrate its usage.
+  selector:
+    matchLabels:
+      tier: express-mongo
+    matchExpressions:
+      - {key: tier, operator: In, values: [express-mongo]}
+  template:
+    metadata:
+      labels:
+        app: express-mongo
+        tier: express-mongo
+    spec:
+      containers:
+      - name: express-mongo
+        image: express-mongo:1.0.4
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "docker"
+      initContainers:
+      - name: express-mongo-loader
+        image: express-mongo-loader:1.0.0
+        env:
+        - name: NODE_ENV
+          value: "docker"
