@@ -6,7 +6,7 @@ Ce projet a pour objectif de fournir une introduction à kubernetes à travers l
  * Installation de kubectl
  * NodeJs pour les tests locaux
 
-#Initialisation de minikube
+# Initialisation de minikube
 Pour initialiser la vm contenant **kubernetes** : 
 `minikube start`
 
