@@ -79,4 +79,4 @@ Executer la commande :
 
 `kubectl apply -f ing-express-mongo.yml`
 
-Apres avoir modifié le fichier /ets/hosts ou C:\Windows\System32\drivers\etc afin d'associer l'ip 127.0.0.1 au domaine **express-mongo.minikube**, l'API est accessible à cette url : **http://express-mongo.minikube/borne**
+Apres avoir modifié le fichier /ets/hosts ou C:\Windows\System32\drivers\etc afin d'associer l'ip de **minikube** au domaine **express-mongo.minikube**, l'API est accessible à cette url : **http://express-mongo.minikube/borne**
