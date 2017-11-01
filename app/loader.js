@@ -10,37 +10,33 @@ const url =
 const dbUrl = config.mongo.url;
 console.log("Chargement des données.");
 
-MongoClient.connect(dbUrl, (err, db) => {
-    db.collection("bornesWifi").count((err, count) =>{
-    if(count == 0) {
-        console.log("Chargement de données...");
-        request(url, (error, response, body) => {
-            if (error || response.statusCode != 200) {
-            console.error("Recupération des données en echec");
-            } else {
-            
-            body.split("\n").forEach(line => {
-                const [reference, lieu, adresse, cp, ville, coord] = line.split(";");
-                if (reference) {
-                    const borne = {
-                        reference:reference,
-                        lieu:lieu,
-                        adresse:adresse,
-                        cp:cp,
-                        ville:ville,
-                        coord:coord
+const Borne = require("./dao/Borne.js");
+const borne = new Borne();
+
+borne.connect().then(()=> {
+    borne.count().then(count => {
+        if(count === 0){
+            console.log("Chargement de données...");
+            request(url, (error, response, body) => {
+                var lines = [];
+                body.split("\r\n").forEach(line => {
+                    const [reference, lieu, adresse, cp, ville, coord] = line.split(";");
+                    if (reference) {
+                        const borne = {
+                            reference:reference,
+                            lieu:lieu,
+                            adresse:adresse,
+                            cp:cp,
+                            ville:ville,
+                            coord:coord
+                        }
+                        lines.push(borne);
                     }
-                    db.collection("bornesWifi").insertOne(borne);
-                    console.log("Enregistrement effectué ", borne.reference);
-                }
-            });
-            }
-        });
+                });
+                borne.insert(lines).then(()=> borne.close());
+        })
     }else{
-        console.log("Données déjà présentes. Elements : " , count );
+        borne.close();
     }
-    //BOF...
-    setTimeout(() => db.close() , 5000);
-    
     })
-});
+})

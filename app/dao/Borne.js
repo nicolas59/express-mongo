@@ -57,3 +57,17 @@ Borne.prototype.close = () => {
        this.db.close();
    }
 }
+
+Borne.prototype.insert = (bornes) => {
+    return new Promise((resolve, reject) => {
+        this.db.collection(collectionName, {strict:false}, (err, col) => {
+            col.insert(bornes, (err, results) => {
+            if(err){
+                reject(err);
+            }else{
+                resolve(results);
+            }
+        });
+     })
+    });
+}
