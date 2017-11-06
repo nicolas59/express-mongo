@@ -1,6 +1,7 @@
 
 const MongoClient = require('mongodb').MongoClient;
-const config = require("../config");
+const config = require("../config"),
+    logger = config.logger;
 
 const collectionName = "bornesWifi"
 
@@ -16,7 +17,7 @@ Borne.prototype.connect = () => {
             .then(
                 (db) =>{ 
                      this.db = db;
-                     console.log("Connexion db reussie");
+                     logger.info("Connexion db reussie");
                      resolve();},
                 (err) => {reject(err.message);})
     })
@@ -30,7 +31,7 @@ Borne.prototype.count = (query) => {
             }else{
                 collection.count().then(
                     (count) => { 
-                        console.log("Ng enregistrements : ", count);
+                        logger.info("Ng enregistrements : %d", count);
                         resolve(count);},
                     (error) => {reject(err.message);}
                 )
@@ -53,21 +54,19 @@ Borne.prototype.find = (criteria) => {
 
 Borne.prototype.close = () => {
    if(this.db){
-       console.log("Fermeture de la connexion");
+       logger.info("Fermeture de la connexion");
        this.db.close();
    }
 }
 
-Borne.prototype.insert = (bornes) => {
+Borne.prototype.insertRow = (bornes) => {
     return new Promise((resolve, reject) => {
         this.db.collection(collectionName, {strict:false}, (err, col) => {
-            col.insert(bornes, (err, results) => {
-            if(err){
+            if(err) {
                 reject(err);
             }else{
-                resolve(results);
+                col.insert(bornes, (err, results) => {resolve(results)});
             }
         });
      })
-    });
-}
+};
