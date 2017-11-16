@@ -1,0 +1,48 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container">
+<div class="example-container mat-elevation-z8">
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource">
+    <!-- Position Column -->
+    <ng-container matColumnDef="reference">
+      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.reference}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="adresse">
+      <mat-header-cell *matHeaderCellDef> adresse </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.adresse}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="cp">
+      <mat-header-cell *matHeaderCellDef> Cp </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.cp}} </mat-cell>
+    </ng-container>
+
+    <!-- Color Column -->
+    <ng-container matColumnDef="ville">
+      <mat-header-cell *matHeaderCellDef> Ville </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.ville}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></mat-row>
+    
+  </mat-table>
+ 
+</div>
+<div class="maps">
+
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="15">
+        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>  
+    </agm-map>
+
+</div>
+</div>

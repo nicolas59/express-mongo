@@ -1,0 +1,42 @@
+/* Structure */
+.example-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 700px;
+    min-height: 500px;
+  }
+  .container{
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .example-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .mat-table {
+    overflow: auto;
+    max-height: 500px;
+  }
+
+
+  .maps{
+      margin-left: 10px;
+      min-width: 500px;
+  }
+
+  .sebm-google-map-container{
+    min-width: 500px;
+      height: 100%;
+  }
+
+  .agm-map {
+    min-width: 500px;
+    height: 100%;
+  }
