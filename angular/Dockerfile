@@ -5,4 +5,4 @@ WORKDIR /app
 ADD . /app
 RUN ["npm", "install", "-g", "angular-1.5-cli"]
 RUN ["npm", "install"]
-CMD ["ng", "serve", "--proxy-config", "proxy.conf.json", "--aot" ,"--no-sourcemap"]
+CMD ["ng", "serve", "--aot" ,"--no-sourcemap"]
